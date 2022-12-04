@@ -9,7 +9,7 @@ from datetime import timedelta
 from floodgate import FixedMapping
 
 cooldown = FixedMapping(capacity=5, period=timedelta(seconds=20))
-
+cooldown.start()
 
 def handle_event(sender):
     retry_after = cooldown.trigger(sender)
