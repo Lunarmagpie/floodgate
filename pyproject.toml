@@ -25,4 +25,4 @@ before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain st
 archs = ["auto", "arm64"]
 
 [tool.cibuildwheel.windows]
-archs = ["auto", "arm64"]
+archs = ["auto", "amd64"]
