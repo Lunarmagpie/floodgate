@@ -57,9 +57,10 @@ impl PyFixedMapping {
     }
 
     #[args(cycle_period = "None")]
-    pub fn start(&self, cycle_period: Option<&PyDelta>) {
+    pub fn start<'a>(slf: PyRef<'a, Self>, cycle_period: Option<&PyDelta>) -> PyRef<'a, Self> {
         let duration = cycle_period.map(PyDelta::as_duration);
-        let mapping = self.mapping.clone();
+        let mapping = slf.mapping.clone();
         floodgate::FixedMapping::<isize>::start(mapping, duration);
+        slf
     }
 }
