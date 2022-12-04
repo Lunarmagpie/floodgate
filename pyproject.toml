@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "floodgate-rs"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
@@ -25,6 +25,3 @@ environment = 'PATH="$HOME/.cargo/bin:$PATH"'
 [tool.cibuildwheel.macos]
 archs = ["auto", "arm64"]
 before-build = "rustup target add aarch64-apple-darwin"
-
-[tool.cibuildwheel.windows]
-archs = ["auto", "amd64"]
