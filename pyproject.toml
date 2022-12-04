@@ -25,6 +25,3 @@ environment = 'PATH="$HOME/.cargo/bin:$PATH"'
 [tool.cibuildwheel.macos]
 archs = ["auto", "arm64"]
 before-build = "rustup target add aarch64-apple-darwin"
-
-[tool.cibuildwheel.windows]
-archs = ["x86", "ARM64", "AMD64"]
