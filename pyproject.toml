@@ -22,7 +22,7 @@ build-verbosity = "1"
 archs = ["aarch64"]
 # before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y; rm ~/.cargo/registry/* -r -f"
 before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y"
-environment = 'export CARGO_UNSTABLE_SPARSE_REGISTRY=true; PATH="$HOME/.cargo/bin:$PATH"'
+environment = 'CARGO_UNSTABLE_SPARSE_REGISTRY=true PATH="$HOME/.cargo/bin:$PATH"'
 
 [tool.cibuildwheel.macos]
 archs = ["auto", "arm64"]
