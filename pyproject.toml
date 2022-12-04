@@ -32,3 +32,7 @@ line-length = 100
 
 [tool.ruff]
 line-length = 100
+
+[tool.mypy]
+strict = true
+python_version = 3.8
