@@ -133,15 +133,15 @@ dependencies = [
 name = "floodgate"
 version = "0.1.0"
 dependencies = [
- "floodgate 0.4.0",
+ "floodgate 0.3.0",
  "pyo3",
 ]
 
 [[package]]
 name = "floodgate"
-version = "0.4.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3fa228340d1d0a74e0bbc4f38e91b41f46041fe0d54abd713d505a802cd6fda2"
+checksum = "c532ef8f4654de8351a8594128bd85e78f4784bd701c50b93d3535f520ee43cc"
 dependencies = [
  "dashmap",
 ]
