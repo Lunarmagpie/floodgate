@@ -83,10 +83,8 @@ impl PyDynamicMapping {
         Ok(())
     }
 
-    #[args(cycle_period = "None")]
-    fn start(&self, cycle_period: Option<&PyDelta>) {
-        let duration = cycle_period.map(|d| d.as_duration());
+    fn start(&self) {
         let mapping = self.mapping.clone();
-        floodgate::DynamicMapping::<isize>::start(mapping, duration);
+        floodgate::DynamicMapping::<isize>::start(mapping);
     }
 }

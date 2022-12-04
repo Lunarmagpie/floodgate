@@ -1,6 +1,6 @@
-use pyo3::{Python, PyResult};
 use pyo3::types::PyDelta;
 use pyo3::types::PyDeltaAccess;
+use pyo3::{PyResult, Python};
 use std::time::Duration;
 
 pub trait ToDuration {
