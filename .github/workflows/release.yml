@@ -1,6 +1,6 @@
-# Taken from https://github.com/vicky5124/lavasnek_rs/blob/master/.github/workflows/release.yml
+# Modified from https://github.com/vicky5124/lavasnek_rs/blob/master/.github/workflows/release.yml
 
-name: Release to to PyPi and GitHub
+name: Release
 
 on:
   workflow_dispatch:
