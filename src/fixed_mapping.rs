@@ -12,11 +12,14 @@ pub struct PyFixedMapping {
 #[pymethods]
 impl PyFixedMapping {
     #[new]
-    fn new(capacity: u64, period: &PyDelta) -> PyResult<Self> {
-        let mapping = floodgate::FixedMapping::new(capacity, period.as_duration());
-        Ok(Self {
-            mapping: Arc::new(mapping),
-        })
+    #[args(cycle_period = "None")]
+    fn new(capacity: u64, period: &PyDelta, cycle_period: Option<&PyDelta>) -> Self {
+        let mapping = Arc::new(floodgate::FixedMapping::new(capacity, period.as_duration()));
+        floodgate::FixedMapping::<isize>::start(
+            mapping.clone(),
+            cycle_period.map(|t| t.as_duration()),
+        );
+        Self { mapping }
     }
 
     fn tokens(&self, key: &PyAny) -> PyResult<u64> {
@@ -54,13 +57,5 @@ impl PyFixedMapping {
         let hash = &key.hash()?;
         self.mapping.reset(hash);
         Ok(())
-    }
-
-    #[args(cycle_period = "None")]
-    pub fn start<'a>(slf: PyRef<'a, Self>, cycle_period: Option<&PyDelta>) -> PyRef<'a, Self> {
-        let duration = cycle_period.map(PyDelta::as_duration);
-        let mapping = slf.mapping.clone();
-        floodgate::FixedMapping::<isize>::start(mapping, duration);
-        slf
     }
 }

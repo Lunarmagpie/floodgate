@@ -12,11 +12,10 @@ pub struct PyDynamicMapping {
 #[pymethods]
 impl PyDynamicMapping {
     #[new]
-    fn new(max_period: &PyDelta) -> PyResult<Self> {
-        let mapping = floodgate::DynamicMapping::new(max_period.as_duration());
-        Ok(Self {
-            mapping: Arc::new(mapping),
-        })
+    fn new(max_period: &PyDelta) -> Self {
+        let mapping = Arc::new(floodgate::DynamicMapping::new(max_period.as_duration()));
+        floodgate::DynamicMapping::start(mapping.clone());
+        Self { mapping }
     }
 
     fn tokens(&self, key: &PyAny, capacity: u64, duration: &PyDelta) -> PyResult<u64> {
@@ -79,11 +78,5 @@ impl PyDynamicMapping {
         let hash = &key.hash()?;
         self.mapping.reset(hash, capacity, duration.as_duration());
         Ok(())
-    }
-
-    fn start(slf: PyRef<Self>) -> PyRef<Self> {
-        let mapping = slf.mapping.clone();
-        floodgate::DynamicMapping::<isize>::start(mapping);
-        slf
     }
 }
