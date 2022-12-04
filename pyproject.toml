@@ -20,9 +20,11 @@ build-verbosity = "1"
 [tool.cibuildwheel.linux]
 archs = ["auto", "aarch64"]
 before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
+environment = 'PATH="$HOME/.cargo/bin:$PATH"'
 
 [tool.cibuildwheel.macos]
 archs = ["auto", "arm64"]
+before-build = "rustup target add aarch64-apple-darwin"
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "amd64"]
