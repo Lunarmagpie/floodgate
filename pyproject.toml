@@ -11,6 +11,18 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
 
-
 [tool.maturin]
 sdist-include = ["floodgate"]
+
+[tool.cibuildwheel]
+build-verbosity = "1"
+
+[tool.cibuildwheel.linux]
+archs = ["auto", "aarch64"]
+before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y"
+
+[tool.cibuildwheel.macos]
+archs = ["auto", "arm64"]
+
+[tool.cibuildwheel.windows]
+archs = ["auto", "arm64"]

@@ -1,0 +1,84 @@
+# Taken from https://github.com/vicky5124/lavasnek_rs/blob/master/.github/workflows/release.yml
+
+name: Release to to PyPi and GitHub
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }} - ${{ matrix.vers }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest", "macos-latest", "windows-latest"]
+        python-version: [37, 38, 39, 310, 311]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        name: Install Python
+        with:
+          python-version: "3.8"
+
+      - name: Set up QEMU
+        if: runner.os == 'Linux'
+        uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+
+      - name: wheels ${{ matrix.os }} ${{ matrix.vers }}
+        uses: joerick/cibuildwheel@v2.2.2
+        env:
+          CIBW_BUILD: "cp${{ matrix.python-version}}-*"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./wheelhouse/*.whl
+
+  build_sdist:
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+
+      - name: Build sdist
+        uses: messense/maturin-action@v1
+        with:
+          maturin-version: latest
+          command: sdist
+          args: -o dist
+      - uses: actions/upload-artifact@v2
+        with:
+          path: dist/*.tar.gz
+
+  release:
+    needs: [build_wheels, build_sdist]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: artifact
+          path: dist
+
+      # - name: Release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     files: target/wheels/lavasnek_rs*.whl
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - uses: pypa/gh-action-pypi-publish@master
+      #   with:
+      #     user: __token__
+      #     password: ${{ secrets.PYPI_TOKEN }}
