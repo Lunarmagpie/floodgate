@@ -1,6 +1,5 @@
 use crate::traits::{ToDuration, ToPydelta};
 
-use floodgate;
 use pyo3::prelude::*;
 use pyo3::types::PyDelta;
 

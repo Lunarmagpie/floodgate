@@ -1,6 +1,5 @@
 use crate::traits::{ToDuration, ToPydelta};
 
-use floodgate;
 use pyo3::prelude::*;
 use pyo3::types::PyDelta;
 use std::sync::Arc;
@@ -27,7 +26,7 @@ impl PyFixedMapping {
 
     pub fn next_reset<'py>(&self, py: Python<'py>, key: &PyAny) -> PyResult<&'py PyDelta> {
         let hash = &key.hash()?;
-        Ok(self.mapping.next_reset(hash).as_pydelta(py)?)
+        self.mapping.next_reset(hash).as_pydelta(py)
     }
 
     pub fn retry_after<'py>(&self, py: Python<'py>, key: &PyAny) -> PyResult<Option<&'py PyDelta>> {

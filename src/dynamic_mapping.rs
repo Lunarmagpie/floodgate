@@ -1,6 +1,5 @@
 use crate::traits::{ToDuration, ToPydelta};
 
-use floodgate;
 use pyo3::prelude::*;
 use pyo3::types::PyDelta;
 use std::sync::Arc;
@@ -33,10 +32,9 @@ impl PyDynamicMapping {
         duration: &PyDelta,
     ) -> PyResult<&'py PyDelta> {
         let hash = &key.hash()?;
-        Ok(self
-            .mapping
+        self.mapping
             .next_reset(hash, capacity, duration.as_duration())
-            .as_pydelta(py)?)
+            .as_pydelta(py)
     }
 
     pub fn retry_after<'py>(
