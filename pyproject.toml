@@ -20,7 +20,7 @@ build-verbosity = "1"
 [tool.cibuildwheel.linux]
 # archs = ["auto", "aarch64"]
 archs = ["aarch64"]
-before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y; ~/.cargo/registry/*"
+before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y; rm ~/.cargo/registry/* -r"
 environment = 'PATH="$HOME/.cargo/bin:$PATH"'
 
 [tool.cibuildwheel.macos]
