@@ -4,12 +4,17 @@ build-backend = "maturin"
 
 [project]
 name = "floodgate-rs"
+version = "0.1.0"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
+description = "Python bindings for, a ratelimiting library written in Rust."
+readme = "README.rst"
+keywords = ["cooldown", "ratelimit", "rate limit", "rust", "pyo3"]
+license = { text = "MIT" }
 
 [tool.maturin]
 sdist-include = ["floodgate"]
