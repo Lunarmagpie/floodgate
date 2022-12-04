@@ -32,9 +32,11 @@ jobs:
           platforms: all
 
       - name: wheels ${{ matrix.os }} ${{ matrix.python-version }}
-        uses: joerick/cibuildwheel@v2.2.2
+        run: |
+          pip install cibuildwheel
+          cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_BUILD: "cp${{ matrix.python-version }}-*"
+          CIBW_BUILD: "cp${{ matrix.python-version}}-*"
 
       - uses: actions/upload-artifact@v2
         with:
