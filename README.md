@@ -1,6 +1,6 @@
 # Floodgate-rs
 
-Python bindings for [floodgate](https://github.com/CircuitSacul/floodgate/), a cooldown library written in rust.
+Python bindings for [floodgate](https://github.com/CircuitSacul/floodgate/), a ratelimiting library written in rust.
 
 ## Example
 
