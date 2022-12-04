@@ -16,12 +16,7 @@ sdist-include = ["floodgate"]
 
 [tool.cibuildwheel]
 build-verbosity = "1"
-skip = [
-    "cp38-musllinux_i686",
-    "cp39-musllinux_i686",
-    "cp310-musllinux_i686",
-    "cp311-musllinux_i686",
-]
+skip = ["*-musllinux_i686"]
 
 [tool.cibuildwheel.linux]
 archs = ["auto", "aarch64"]
