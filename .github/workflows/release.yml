@@ -73,14 +73,12 @@ jobs:
           name: artifact
           path: dist
 
-      # - name: Release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: target/wheels/lavasnek_rs*.whl
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - uses: pypa/gh-action-pypi-publish@master
-      #   with:
-      #     user: __token__
-      #     password: ${{ secrets.PYPI_TOKEN }}
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: publish
+        run: |
+          pip install build
+          python -m build
+          pip install twine
+          twine upload dist/* -u __token__ -p ${{ secrets.PYPI_TOKEN }}
