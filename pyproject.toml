@@ -18,9 +18,7 @@ sdist-include = ["floodgate"]
 build-verbosity = "1"
 
 [tool.cibuildwheel.linux]
-# archs = ["auto", "aarch64"]
-archs = ["aarch64"]
-# before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y; rm ~/.cargo/registry/* -r -f"
+archs = ["auto", "aarch64"]
 before-build = "curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y"
 environment = 'CARGO_UNSTABLE_SPARSE_REGISTRY=true PATH="$HOME/.cargo/bin:$PATH"'
 
