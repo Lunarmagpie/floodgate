@@ -9,7 +9,10 @@ pub trait ToDuration {
 
 impl ToDuration for PyDelta {
     fn as_duration(&self) -> Duration {
-        Duration::from_micros(self.get_microseconds() as u64)
+        let days = self.get_days() as u64;
+        let seconds = self.get_seconds() as u64;
+        let mircros = self.get_microseconds() as u64;
+        Duration::from_micros((days * 86400 + seconds) * 1000000 + mircros)
     }
 }
 
