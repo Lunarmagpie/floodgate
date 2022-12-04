@@ -81,8 +81,11 @@ impl PyDynamicMapping {
         Ok(())
     }
 
-    fn start(&self) {
+    fn start(&self) -> Self {
         let mapping = self.mapping.clone();
         floodgate::DynamicMapping::<isize>::start(mapping);
+        Self {
+            mapping: self.mapping.clone(),
+        }
     }
 }
