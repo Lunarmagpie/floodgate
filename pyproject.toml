@@ -26,3 +26,9 @@ environment = 'CARGO_UNSTABLE_SPARSE_REGISTRY=true PATH="$HOME/.cargo/bin:$PATH"
 [tool.cibuildwheel.macos]
 archs = ["auto", "arm64"]
 before-build = "rustup target add aarch64-apple-darwin"
+
+[tool.black]
+line-length = 100
+
+[tool.ruff]
+line-length = 100
