@@ -11,8 +11,8 @@ impl ToDuration for PyDelta {
     fn as_duration(&self) -> Duration {
         let days = self.get_days() as u64;
         let seconds = self.get_seconds() as u64;
-        let mircros = self.get_microseconds() as u64;
-        Duration::from_micros((days * 86400 + seconds) * 1000000 + mircros)
+        let micros = self.get_microseconds() as u64;
+        Duration::from_secs(days * 86400 + seconds) + Duration::from_micros(micros)
     }
 }
 
@@ -22,6 +22,12 @@ pub trait ToPydelta {
 
 impl ToPydelta for Duration {
     fn as_pydelta<'py>(&self, py: Python<'py>) -> PyResult<&'py PyDelta> {
-        PyDelta::new(py, 0, 0, self.as_micros() as i32, false)
+        PyDelta::new(
+            py,
+            0,
+            self.as_secs() as i32,
+            self.subsec_micros() as i32,
+            false,
+        )
     }
 }
